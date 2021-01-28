@@ -137,3 +137,24 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; h
 HISTSIZE=10000
 HISTFILESIZE=10000
 
+# color prompt including git branch information
+# ---------------------------------------------
+# separate pieces of the prompt
+function add_git_status_to_prompt {
+    __start='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W'
+    __git_branch=" $(/usr/bin/git branch 2> /dev/null | /bin/grep -e ^* | /usr/bin/cut -d' ' -f2 | sed 's/.*/(&)/g')"
+    __end='\[\033[00m\]\$ '
+    # get git status for current working directory
+    git_status="$(/usr/bin/git status 2>/dev/null)"
+    # set color based on status
+    if [[ $git_status =~ "working directory clean" ]] || [[ $git_status =~ "working tree clean" ]]; then
+        state='\[\033[0;32m\]' # green
+    elif [[ ${git_status} =~ "Changes to be committed" ]]; then
+        state='\[\033[0;33m\]'
+    else
+        state='\[\033[0;31m\]'
+    fi
+    export PS1="${__start}${state}${__git_branch}${__end}"
+}
+PROMPT_COMMAND="${PROMPT_COMMAND}; add_git_status_to_prompt"
+
