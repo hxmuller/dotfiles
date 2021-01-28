@@ -118,3 +118,13 @@ XDG_CONFIG_HOME=$HOME/.config
 XDG_CONFIG_DIRS=/etc/xdg
 XDG_DATA_DIRS=/usr/local/share/:/usr/share/
 XDG_DATA_HOME=$HOME/.local/share
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# set MAIL* variables
+MAIL=/var/mail/$USER
+MAILCHECK=300
+
