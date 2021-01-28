@@ -119,6 +119,9 @@ XDG_CONFIG_DIRS=/etc/xdg
 XDG_DATA_DIRS=/usr/local/share/:/usr/share/
 XDG_DATA_HOME=$HOME/.local/share
 
+# Personal Customizations Section
+# =====================================================================
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
@@ -127,4 +130,10 @@ fi
 # set MAIL* variables
 MAIL=/var/mail/$USER
 MAILCHECK=300
+
+# keep history of all terminals, avoid duplicates, increase size
+HISTCONTROL=ignoredups:erasedups
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+HISTSIZE=10000
+HISTFILESIZE=10000
 
