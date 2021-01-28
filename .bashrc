@@ -142,7 +142,7 @@ HISTFILESIZE=10000
 # separate pieces of the prompt
 function add_git_status_to_prompt {
     __start='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W'
-    __git_branch=" $(/usr/bin/git branch 2> /dev/null | /bin/grep -e ^* | /usr/bin/cut -d' ' -f2 | sed 's/.*/(&)/g')"
+    __git_branch="$(/usr/bin/git branch 2> /dev/null | /bin/grep -e ^* | /usr/bin/cut -d' ' -f2 | sed 's/.*/(&)/g')"
     __end='\[\033[00m\]\$ '
     # get git status for current working directory
     git_status="$(/usr/bin/git status 2>/dev/null)"
