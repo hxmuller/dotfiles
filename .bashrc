@@ -149,19 +149,19 @@ function add_git_status_to_prompt {
     # set color based on status
     if [[ "${git_status}" =~ "nothing to commit" ]]; then
 	if [[ "$__git_branch" == "" ]]; then
-            __git_branch="(no commits)"
+            __git_branch="(empty)"
 	    state='\[\033[0;37m\]' # white
         else
             state='\[\033[0;32m\]' # green
 	fi
     elif [[ "${git_status}" =~ "untracked files" ]]; then
 	if [[ "$__git_branch" == "" ]]; then
-	    __git_branch="(untracked files)"
+	    __git_branch="(untracked)"
 	    state='\[\033[0;37m\]' # white
 	fi
     elif [[ ${git_status} =~ "Changes to be committed" ]]; then
 	if [[ "$__git_branch" == "" ]]; then
-	    __git_branch="(staged files)"
+	    __git_branch="(staged)"
             state='\[\033[0;37m\]' # white
 	else
 	    state='\[\033[0;33m\]' # yellow
