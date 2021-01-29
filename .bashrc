@@ -147,14 +147,30 @@ function add_git_status_to_prompt {
     # get git status for current working directory
     git_status="$(/usr/bin/git status 2>/dev/null)"
     # set color based on status
-    if [[ $git_status =~ "working directory clean" ]] || [[ $git_status =~ "working tree clean" ]]; then
-        state='\[\033[0;32m\]' # green
+    if [[ "${git_status}" =~ "nothing to commit" ]]; then
+	if [[ "$__git_branch" == "" ]]; then
+            __git_branch="(no commits)"
+	    state='\[\033[0;37m\]' # white
+        else
+            state='\[\033[0;32m\]' # green
+	fi
+    elif [[ "${git_status}" =~ "untracked files" ]]; then
+	if [[ "$__git_branch" == "" ]]; then
+	    __git_branch="(untracked files)"
+	    state='\[\033[0;37m\]' # white
+	fi
     elif [[ ${git_status} =~ "Changes to be committed" ]]; then
-        state='\[\033[0;33m\]'
+	if [[ "$__git_branch" == "" ]]; then
+	    __git_branch="(staged files)"
+            state='\[\033[0;37m\]' # white
+	else
+	    state='\[\033[0;33m\]' # yellow
+	fi
     else
-        state='\[\033[0;31m\]'
+        state='\[\033[0;31m\]' # red
     fi
     export PS1="${__start}${state}${__git_branch}${__end}"
 }
 PROMPT_COMMAND="${PROMPT_COMMAND}; add_git_status_to_prompt"
 
+alias cde='cd /var/tmp/udacity/intro_to_programming_nanodegree/extracurricular/'
