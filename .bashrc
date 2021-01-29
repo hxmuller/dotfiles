@@ -169,7 +169,7 @@ function add_git_status_to_prompt {
     else
         state='\[\033[0;31m\]' # red
     fi
-    export PS1="${__start}${state}${__git_branch}${__end}"
+    export PS1="${__start} ${state}${__git_branch}${__end}"
 }
 PROMPT_COMMAND="${PROMPT_COMMAND}; add_git_status_to_prompt"
 
