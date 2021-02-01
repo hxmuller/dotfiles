@@ -173,4 +173,8 @@ function add_git_status_to_prompt {
 }
 PROMPT_COMMAND="${PROMPT_COMMAND}; add_git_status_to_prompt"
 
-alias cde='cd /var/tmp/udacity/intro_to_programming_nanodegree/extracurricular/'
+# Temporary Alias definitions.
+if [ -f ~/.config/bash/temporary_bash_aliases ]; then
+    . ~/.config/bash/temporary_bash_aliases
+fi
+
